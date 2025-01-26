@@ -128,7 +128,7 @@ const Navbar = () => {
             className="flexBetween w-9 h-5 bg-black rounded-2xl p-1 relative label"
           >
             <Sun className="text-white" />
-            <Moon />
+            <Moon className="text-white" />
             <div className="w-4 h-4 absolute bg-white rounded-full ball" />
           </label>
         </div>{" "}
