@@ -84,20 +84,14 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flexBetween w-full fixed z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
+    <nav className="flexBetween w-full  z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1 ">
       <div className="flex flex-1 flex-row justify-start">
         <Link href="/">
           <div
             className="flexCenter md:hidden cursor-pointer"
             onClick={() => {}}
           >
-            <Image
-              src="/assets/logo02.png"
-              objectFit="contain"
-              width={32}
-              height={32}
-              alt="logo"
-            />
+            <Image src="/assets/logo02.png" width={32} height={32} alt="logo" />
             <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">
               CryptoKet
             </p>
@@ -105,13 +99,7 @@ const Navbar = () => {
         </Link>{" "}
         <Link href="/">
           <div className="hidden md:flex cursor-pointer" onClick={() => {}}>
-            <Image
-              src="/assets/logo02.png"
-              objectFit="contain"
-              width={32}
-              height={32}
-              alt="logo"
-            />
+            <Image src="/assets/logo02.png" width={32} height={32} alt="logo" />
           </div>
         </Link>
       </div>
@@ -146,7 +134,6 @@ const Navbar = () => {
             alt="close"
             width={25}
             height={25}
-            objectFit="contain"
             onClick={() => setIsOpen(false)}
             className={`${theme === "light" && "filter invert"}`}
           />
@@ -156,7 +143,6 @@ const Navbar = () => {
             alt="menu"
             width={25}
             height={25}
-            objectFit="contain"
             onClick={() => setIsOpen(true)}
             className={`${theme === "light" && "filter invert"}`}
           />

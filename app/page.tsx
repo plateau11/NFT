@@ -1,7 +1,15 @@
+import Banner from "@/components/banner/Banner";
+
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      NFT
+    <div className="flex justify-center sm:px-4 p-12">
+      <div className="w-full minmd:w-4/5">
+        <Banner
+          name="Discover, collect, and sell extraordinary NFTs"
+          childStyles="md:text-4xl sm:text-2xl xs:text-xl text-left"
+          parentStyles="justify-start mb-6 h-72 sm:h-60 p-12 xs:p-4 xs:h-44 rounded-3xl"
+        />
+      </div>
     </div>
   );
 }

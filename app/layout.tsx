@@ -37,7 +37,7 @@ export default function RootLayout({
         >
           <div className="dark:bg-nft-dark bg-white min-h-screen">
             <Navbar />
-            {children}
+            <div className="pt-64">{children}</div>
             <Footer />
           </div>
           <script
