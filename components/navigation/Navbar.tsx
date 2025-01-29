@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Moon, Sun } from "lucide-react";
 import Button from "../button/Button";
+import { NFTContext } from "@/context/NFTContext";
 
 const MenuItems = ({
   isMobile = false,
@@ -28,7 +29,6 @@ const MenuItems = ({
         return "/";
     }
   };
-
   return (
     <ul
       className={`list-none flexCenter flex-row ${
@@ -57,10 +57,9 @@ const ButtonGroup = ({
 }: {
   setActive: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const hasConnected = true;
   const router = useRouter();
-
-  return hasConnected ? (
+  const { connectWallet, currentAccount } = useContext(NFTContext);
+  return currentAccount ? (
     <Button
       btnName="Create"
       classStyles="mx-2 rounded-xl"
@@ -73,7 +72,7 @@ const ButtonGroup = ({
     <Button
       btnName="Connect"
       classStyles="mx-2 rounded-xl"
-      handleClick={() => {}}
+      handleClick={connectWallet}
     />
   );
 };

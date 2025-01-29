@@ -1,6 +1,7 @@
+import { NFTContext } from "@/context/NFTContext";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 interface NFT {
   i: number;
   name: string;
@@ -11,6 +12,7 @@ interface NFT {
   price: string;
 }
 const NFTCard = ({ nft }: { nft: NFT }) => {
+  const { nftCurrency } = useContext(NFTContext);
   return (
     <Link
       href={{ pathname: "/nft-details", query: { nft: JSON.stringify(nft) } }}
@@ -33,7 +35,7 @@ const NFTCard = ({ nft }: { nft: NFT }) => {
           <div className="flexBetween mt-1 minlg:mt-3 flex-row xs:flex xs:items-start xs:mt-3">
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
               {nft.price}
-              <span className="normal ml-0.5">ETH</span>
+              <span className="normal ml-0.5">{nftCurrency}</span>
             </p>
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
               {nft.seller}

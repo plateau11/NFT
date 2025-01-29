@@ -4,6 +4,7 @@ import "./globals.css";
 import ThemeProvider from "@/context/Theme";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/footer/Footer";
+import { NFTProvider } from "@/context/NFTContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,22 +30,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="dark:bg-nft-dark bg-white min-h-screen">
-            <Navbar />
-            <div>{children}</div>
-            <Footer />
-          </div>
-          <script
-            src="https://kit.fontawesome.com/8a40a6fca5.js"
-            crossOrigin="anonymous"
-          />
-        </ThemeProvider>
+        <NFTProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="dark:bg-nft-dark bg-white min-h-screen">
+              <Navbar />
+              <div>{children}</div>
+              <Footer />
+            </div>
+            <script
+              src="https://kit.fontawesome.com/8a40a6fca5.js"
+              crossOrigin="anonymous"
+            />
+          </ThemeProvider>
+        </NFTProvider>
       </body>
     </html>
   );
