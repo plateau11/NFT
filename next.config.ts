@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     config.externals.push("ipfs-http-client");
     return config;
   },
+  images: {
+    domains: ["gateway.pinata.cloud"],
+  },
 };
 
 export default nextConfig;
