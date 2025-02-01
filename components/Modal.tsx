@@ -8,7 +8,7 @@ const Modal = ({
   handleClose,
   header,
 }: {
-  footer: React.ReactNode;
+  footer?: React.ReactNode;
   body: React.ReactNode;
   handleClose: () => void;
   header: string;

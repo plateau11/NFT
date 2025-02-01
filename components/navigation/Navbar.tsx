@@ -13,10 +13,12 @@ const MenuItems = ({
   isMobile = false,
   active,
   setActive,
+  setIsOpen,
 }: {
   isMobile: boolean;
   active: string;
   setActive: React.Dispatch<React.SetStateAction<string>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const generateLink = (index: number) => {
     switch (index) {
@@ -40,7 +42,10 @@ const MenuItems = ({
       {["Explore NFTs", "Listed NFTs", "My NFTs"].map((item, index) => (
         <li
           key={index}
-          onClick={() => setActive(item)}
+          onClick={() => {
+            setActive(item);
+            if (isMobile) setIsOpen!(false);
+          }}
           className={`cursor-pointer flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white hover:text-nft-dark mx-3 ${
             active === item
               ? "dark:text-white text-nft-black-1"
@@ -56,8 +61,12 @@ const MenuItems = ({
 
 const ButtonGroup = ({
   setActive,
+  setIsOpen,
+  isMobile,
 }: {
   setActive: React.Dispatch<React.SetStateAction<string>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isMobile?: boolean;
 }) => {
   const router = useRouter();
   const { connectWallet, currentAccount } = useContext(NFTContext);
@@ -68,6 +77,7 @@ const ButtonGroup = ({
       handleClick={() => {
         setActive("");
         router.push("/create-nft");
+        if (isMobile) setIsOpen!(false);
       }}
     />
   ) : (
@@ -125,16 +135,22 @@ const Navbar = () => {
         <Link href="/">
           <div
             className="flexCenter md:hidden cursor-pointer"
-            onClick={() => {}}
+            onClick={() => setActive("Explore NFTs")}
           >
             <Image src="/assets/logo02.png" width={32} height={32} alt="logo" />
             <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">
-              CryptoKet
+              NFT Market
             </p>
           </div>
         </Link>{" "}
         <Link href="/">
-          <div className="hidden md:flex cursor-pointer" onClick={() => {}}>
+          <div
+            className="hidden md:flex cursor-pointer"
+            onClick={() => {
+              setActive("Explore NFTs");
+              setIsOpen(false);
+            }}
+          >
             <Image src="/assets/logo02.png" width={32} height={32} alt="logo" />
           </div>
         </Link>
@@ -195,10 +211,15 @@ const Navbar = () => {
                 active={active}
                 setActive={setActive}
                 isMobile={true}
+                setIsOpen={setIsOpen}
               />
             </div>
             <div className="p-4 border-t dark:border-nft-black-1 border-nft-gray-1">
-              <ButtonGroup setActive={setActive} />
+              <ButtonGroup
+                setActive={setActive}
+                setIsOpen={setIsOpen}
+                isMobile={true}
+              />
             </div>
           </div>
         )}

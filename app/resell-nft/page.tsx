@@ -8,19 +8,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
 const ResellNFT = () => {
-  const { createSale } = useContext(NFTContext);
+  const { createSale, isLoadingNFT } = useContext(NFTContext);
   const searchParams = useSearchParams();
   const tokenId = searchParams.get("tokenId");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const tokenURI = searchParams.get("tokenURI");
   const router = useRouter();
   const fetchNFT = async () => {
     const { data } = await axios.get(tokenURI!);
     setPrice(data.price);
     setImage(data.image);
-    setIsLoading(false);
   };
   useEffect(() => {
     if (tokenURI) fetchNFT();
@@ -29,7 +27,13 @@ const ResellNFT = () => {
     await createSale(tokenURI, price, true, tokenId);
     router.push("/");
   };
-  if (isLoading) return <Loader />;
+  if (isLoadingNFT) {
+    return (
+      <div className="flexStart min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="flex justify-center sm:px-4 p-12">
       <div className="w-3/4 md:w-full">

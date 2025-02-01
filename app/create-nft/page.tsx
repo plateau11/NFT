@@ -2,6 +2,7 @@
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import { NFTContext } from "@/context/NFTContext";
+import { Loader } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -16,7 +17,7 @@ const CreateNFT = () => {
     price: "",
     description: "",
   });
-  const { uploadToIPFS, createNFT } = useContext(NFTContext);
+  const { uploadToIPFS, createNFT, isLoadingNFT } = useContext(NFTContext);
   const router = useRouter();
   const onDrop = useCallback(async (acceptedFile: File[]) => {
     const url = await uploadToIPFS(acceptedFile[0]);
@@ -45,7 +46,13 @@ const CreateNFT = () => {
       }`,
     [isDragActive, isDragAccept, isDragReject]
   );
-
+  if (isLoadingNFT) {
+    return (
+      <div className="flexStart min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="flex justify-center sm:px-4 p-12">
       <div className="w-3/5 md:w-full">

@@ -66,7 +66,7 @@ const HotBids = () => {
           />
         </div>
       </div>
-      <div className="mt-3 w-full flex flex-wrap justify-center ">
+      <div className="mt-3 w-full flex flex-wrap justify-center gap-2">
         {nfts.map((nft) => (
           <NFTCard key={nft.tokenId} nft={nft} />
         ))}{" "}

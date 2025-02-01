@@ -29,7 +29,6 @@ const Footer = () => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Only show theme-dependent content when mounted on client
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -40,7 +39,7 @@ const Footer = () => {
           <div className="flexCenter cursor-pointer">
             <Image src="/assets/logo02.png" width={32} height={32} alt="logo" />
             <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">
-              CryptoKet
+              NFT Market
             </p>
           </div>
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base mt-6">
@@ -76,28 +75,30 @@ const Footer = () => {
       <div className="flexCenter w-full mt-5 border-t dark:border-nft-black-1 border-nft-gray-1 sm:px-4 px-16">
         <div className="flexBetween flex-row w-full minmd:w-4/5 sm:flex-col mt-7">
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
-            CryptoKet, Inc. All Rights Reserved.
+            NFT Market , Inc. All Rights Reserved.
           </p>
-          {mounted && ( // Only render theme-dependent content when mounted
-            <div className="flex flex-row sm:mt-4">
-              {[
-                "/assets/instagram.png",
-                "/assets/twitter.png",
-                "/assets/telegram.png",
-                "/assets/discord.png",
-              ].map((item, index) => (
-                <div key={index} className="mx-2 cursor-pointer">
-                  <Image
-                    src={item || "/placeholder.svg"}
-                    alt="socials"
-                    width={24}
-                    height={24}
-                    className={theme === "light" ? "brightness-0" : ""}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="flex flex-row sm:mt-4">
+            {mounted && (
+              <>
+                {[
+                  "/assets/instagram.png",
+                  "/assets/twitter.png",
+                  "/assets/telegram.png",
+                  "/assets/discord.png",
+                ].map((item, index) => (
+                  <div key={index} className="mx-2 cursor-pointer">
+                    <Image
+                      src={item || "/placeholder.svg"}
+                      alt="socials"
+                      width={24}
+                      height={24}
+                      className={theme === "light" ? "brightness-0" : ""}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </footer>

@@ -9,8 +9,8 @@ export const NFTContext = React.createContext();
 
 const fetchContract = (signerOrProvider) =>
   new ethers.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
-
 export const NFTProvider = ({ children }) => {
+  const [isLoadingNFT, setIsLoadingNFT] = useState(false);
   const [currentAccount, setCurrentAccount] = useState("");
   const nftCurrency = "ETH";
 
@@ -131,6 +131,7 @@ export const NFTProvider = ({ children }) => {
         : await contract.resellToken(id, price, {
             value: listingPrice.toString(),
           });
+      setIsLoadingNFT(true);
       await transaction.wait();
     } catch (error) {
       console.error("Error creating sale.", error);
@@ -138,6 +139,8 @@ export const NFTProvider = ({ children }) => {
   };
 
   const fetchNFTs = async () => {
+    setIsLoadingNFT(false);
+
     const provider = new ethers.providers.JsonRpcProvider();
     const contract = fetchContract(provider);
     const data = await contract.fetchMarketItems();
@@ -167,6 +170,7 @@ export const NFTProvider = ({ children }) => {
   };
 
   const fetchMyNFTsOrListedNFTs = async (type) => {
+    setIsLoadingNFT(false);
     const we3Modal = new Web3Modal();
     const connection = await we3Modal.connect();
     console.log("Connected to Web3");
@@ -215,7 +219,10 @@ export const NFTProvider = ({ children }) => {
     const transaction = await contract.createMarketSale(nft.tokenId, {
       value: price,
     });
+    setIsLoadingNFT(true);
+
     await transaction.wait();
+    setIsLoadingNFT(false);
   };
   return (
     <NFTContext.Provider
@@ -230,6 +237,7 @@ export const NFTProvider = ({ children }) => {
         fetchMyNFTsOrListedNFTs,
         buyNFT,
         createSale,
+        isLoadingNFT,
       }}
     >
       {children}

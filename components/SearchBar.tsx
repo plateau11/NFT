@@ -17,6 +17,11 @@ const SearchBar = ({
   const [toggle, setToggle] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearch(debouncedSearch);
@@ -35,13 +40,15 @@ const SearchBar = ({
   return (
     <>
       <div className="flex-1 flexCenter dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 rounded-md py-3">
-        <Image
-          src="/assets/search.png"
-          alt="search"
-          width={20}
-          height={20}
-          className={`${theme === "light" && "filter invert"} `}
-        />
+        {mounted && (
+          <Image
+            src="/assets/search.png"
+            alt="search"
+            width={20}
+            height={20}
+            className={`${theme === "light" && "filter invert"} `}
+          />
+        )}
         <input
           type="text"
           placeholder="Search NFT here..."
@@ -52,18 +59,20 @@ const SearchBar = ({
       </div>
       <div
         onClick={() => setToggle((prev) => !prev)}
-        className="relative flexBetween ml-4 sm:ml-0 sm:mt-2 min-w-190 cursor-pointer dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 rounded-md"
+        className="py-3 relative flexBetween ml-4 sm:ml-0 sm:mt-2 min-w-190 cursor-pointer dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 rounded-md"
       >
         <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-xs">
           {activeSelect}
         </p>
-        <Image
-          src="/assets/arrow.png"
-          width={15}
-          height={15}
-          alt="arrow"
-          className={`${theme === "light" && "filter invert"}`}
-        />
+        {mounted && (
+          <Image
+            src="/assets/arrow.png"
+            width={15}
+            height={15}
+            alt="arrow"
+            className={theme === "light" ? "filter invert" : ""}
+          />
+        )}
         {toggle && (
           <div className="absolute top-full left-0 right-0 w-full mt-3 z-10 dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 py-3 px-4 rounded-md">
             {[

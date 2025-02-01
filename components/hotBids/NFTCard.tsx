@@ -24,9 +24,8 @@ const NFTCard = ({
     <Link
       href={{ pathname: "/nft-details/", query: { nft: JSON.stringify(nft) } }}
     >
-      {" "}
       <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-full sm:min-w-155 minmd:min-2-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 m-4 minlg:m-5 sm:my-2 sm:mx-2 cursor-pointer shadow-md">
-        <div className="relative w-full h-52 sm:h-36 xs:h-56 minmd:h60 minlg:h-300 rounded-2xl overflow-hidden">
+        <div className="relative w-full h-52 sm:h-36  minmd:h-60 minlg:h-300 rounded-2xl overflow-hidden">
           <Image
             src={nft.image || `/assets/nft${nft.tokenId}.png`}
             alt={`nft${nft.tokenId}`}
