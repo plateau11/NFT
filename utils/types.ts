@@ -1,5 +1,5 @@
 interface NFTItem {
-  price: string;
+  price: number;
   tokenId: number;
   seller: string;
   owner: string;

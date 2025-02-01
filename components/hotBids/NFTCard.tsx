@@ -10,7 +10,7 @@ interface NFT {
   owner: string;
   description: string;
   image?: string;
-  price: string;
+  price: number;
 }
 const NFTCard = ({
   nft,

@@ -6,19 +6,41 @@ import { NFTContext } from "@/context/NFTContext";
 import Banner from "@/components/banner/Banner";
 import Image from "next/image";
 import { shortenAddress } from "@/utils/shortenAddress";
+import SearchBar from "@/components/SearchBar";
 
 const MyNFTs = () => {
   const [nfts, setNfts] = useState<NFTItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
-
+  const [activeSelect, setActiveSelect] = useState<string>("Recently Added");
+  const [nftsCopy, setNftsCopy] = useState<NFTItem[]>([]);
   useEffect(() => {
     fetchMyNFTsOrListedNFTs().then((items: NFTItem[]) => {
       setNfts(items);
-      console.log(items);
+      setNftsCopy(items);
       setIsLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const sortedNfts = [...nfts];
+
+    switch (activeSelect) {
+      case "Price (low to high)":
+        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
+        break;
+      case "Price (high to low)":
+        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
+        break;
+      case "Recently added":
+        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
+        break;
+      default:
+        setNfts(nfts);
+        break;
+    }
+  }, [activeSelect]);
+
   if (isLoading) {
     return (
       <div className="flexStart min-h-screen">
@@ -27,6 +49,22 @@ const MyNFTs = () => {
     );
   }
 
+  const onHandleSearch = (value: string) => {
+    const filteredNfts = nfts.filter(({ name }) =>
+      name.toLowerCase().includes(value.toLowerCase())
+    );
+    if (filteredNfts.length) {
+      setNfts(filteredNfts);
+    } else {
+      setNfts(nftsCopy);
+    }
+  };
+
+  const onClearSearch = () => {
+    if (nfts.length && nftsCopy.length) {
+      setNfts(nftsCopy);
+    }
+  };
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen">
       <div className="w-full flexCenter flex-col">
@@ -50,7 +88,7 @@ const MyNFTs = () => {
           </p>
         </div>
       </div>
-      {!isLoading && !nfts.length ? (
+      {!isLoading && !nfts.length && !nftsCopy.length ? (
         <div className="flexCenter sm:p-4 p-26">
           <h1 className="font-poppins dark:text-white text-nft-black-1 font-extrabold text-3xl">
             No NFTs Owned
@@ -59,7 +97,12 @@ const MyNFTs = () => {
       ) : (
         <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
           <div className="flex-1 w-full flex flex-row sm:flex-col px-4 xs:p-0 minlg:px-8">
-            Searchbar
+            <SearchBar
+              activeSelect={activeSelect}
+              setActiveSelect={setActiveSelect}
+              handleSearch={onHandleSearch}
+              clearSearch={onClearSearch}
+            />
           </div>
           <div className="mt-3 w-full flex flex-wrap">
             {nfts.map((nft) => (
