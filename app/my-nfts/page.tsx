@@ -11,6 +11,14 @@ const MyNFTs = () => {
   const [nfts, setNfts] = useState<NFTItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
+
+  useEffect(() => {
+    fetchMyNFTsOrListedNFTs().then((items: NFTItem[]) => {
+      setNfts(items);
+      console.log(items);
+      setIsLoading(false);
+    });
+  }, []);
   if (isLoading) {
     return (
       <div className="flexStart min-h-screen">
@@ -19,17 +27,6 @@ const MyNFTs = () => {
     );
   }
 
-  {
-    /*  if (!isLoading && nfts.length === 0) {
-    return (
-      <div className="flexCenter sm:p-4 p-16 min-h-screen">
-        <h1 className="font-poppins dark:text-white text-nft-black-1 text-3xl font-extrabold">
-          No NFTs Listed for Sale
-        </h1>
-      </div>
-    );
-  } */
-  }
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen">
       <div className="w-full flexCenter flex-col">
