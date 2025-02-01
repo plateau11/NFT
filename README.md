@@ -34,8 +34,8 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/yourusername/nft-marketplace.git
-   cd nft-marketplace
+   git clone https://github.com/AdityaPradhan00/NFT.git
+   cd NFT
    ```
 
 2. **Install dependencies:**
@@ -77,7 +77,8 @@ Before you begin, ensure you have the following installed:
    ```sh
    NEXT_PUBLIC_PINATA_API_KEY=your_pinata_api_key
    NEXT_PUBLIC_PINATA_SECRET_API_KEY=your_pinata_secret_api_key
-   NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS=deployed_contract_address
+   NEXT_PUBLIC_PINATA_URL='https://api.pinata.cloud/pinning/pinFileToIPFS'
+   NEXT_PUBLIC_PINATA_JSON_URL='https://api.pinata.cloud/pinning/pinJSONToIPFS'
    ```
 
 2. **Start the Next.js development server:**

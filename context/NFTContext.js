@@ -14,10 +14,14 @@ export const NFTProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
   const nftCurrency = "ETH";
 
-  const pinataApiKey = "1e5199f7a3d79e05ce05";
+  const pinataApiKey =
+    process.env.NEXT_PUBLIC_PINATA_API_KEY || "1e5199f7a3d79e05ce05";
   const pinataSecretApiKey =
+    process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY ||
     "d584d159b0ccc6235fe4d69a3a6bf053774dc0d90d5cb008112717f8e6f148c8";
-  const pinataUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+  const pinataUrl =
+    process.env.NEXT_PUBLIC_PINATA_URL ||
+    "https://api.pinata.cloud/pinning/pinFileToIPFS";
   const pinataJsonUrl = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
 
   const checkIfWalletIsConnected = async () => {
