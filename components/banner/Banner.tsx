@@ -7,14 +7,14 @@ const Banner = ({
 }: {
   parentStyles: string;
   childStyles: string;
-  name: string;
+  name: string | React.ReactNode;
 }) => {
   return (
     <div
       className={`${parentStyles} relative w-full flex items-center z-0 overflow-hidden nft-gradient `}
     >
       <p
-        className={`font-bold text-5xl font-poppins leading-70 ${childStyles}`}
+        className={`font-bold text-5xl font-poppins leading-70 text-white ${childStyles}`}
       >
         {name}
       </p>

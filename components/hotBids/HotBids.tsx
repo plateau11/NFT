@@ -13,7 +13,6 @@ const HotBids = () => {
     fetchNFTs().then((items: NFTItem[]) => {
       setNfts(items);
       setNftsCopy(items);
-      console.log(items);
     });
   }, []);
   useEffect(() => {
@@ -56,7 +55,7 @@ const HotBids = () => {
       {" "}
       <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start gap-10">
         <h1 className=" font-poppins dark:text-white text-nft-black-1 sm:text-2xl text-4xl font-semibold sm:mb-4 ">
-          Hot Bids
+          Hot NFTs
         </h1>
         <div className="flex-1 sm:w-full flex flex-row sm:flex-col">
           <SearchBar

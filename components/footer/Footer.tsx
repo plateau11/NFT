@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import Button from "../button/Button";
@@ -27,6 +27,12 @@ const FooterLinks = ({
 );
 const Footer = () => {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Only show theme-dependent content when mounted on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <footer className="flexCenter flex-col border-t dark:border-nft-blsack-1 border-nft-gray-1 sm:py-8 py-16">
       <div className="w-full minmd:w-4/5 flex flex-row md:flex-col sm:px-4 px-16">
@@ -72,24 +78,26 @@ const Footer = () => {
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
             CryptoKet, Inc. All Rights Reserved.
           </p>
-          <div className="flex flex-row sm:mt-4">
-            {[
-              "/assets/instagram.png",
-              "/assets/twitter.png",
-              "/assets/telegram.png",
-              "/assets/discord.png",
-            ].map((item, index) => (
-              <div key={index} className="mx-2 cursor-pointer">
-                <Image
-                  src={item}
-                  alt="socials"
-                  width={24}
-                  height={24}
-                  className={`${theme === "light" ? "filter invert" : ""}`}
-                />
-              </div>
-            ))}
-          </div>
+          {mounted && ( // Only render theme-dependent content when mounted
+            <div className="flex flex-row sm:mt-4">
+              {[
+                "/assets/instagram.png",
+                "/assets/twitter.png",
+                "/assets/telegram.png",
+                "/assets/discord.png",
+              ].map((item, index) => (
+                <div key={index} className="mx-2 cursor-pointer">
+                  <Image
+                    src={item || "/placeholder.svg"}
+                    alt="socials"
+                    width={24}
+                    height={24}
+                    className={theme === "light" ? "brightness-0" : ""}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </footer>

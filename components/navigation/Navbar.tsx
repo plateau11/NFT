@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/navigation";
+import type React from "react";
+import { useState, useEffect, useContext } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,6 +30,7 @@ const MenuItems = ({
         return "/";
     }
   };
+
   return (
     <ul
       className={`list-none flexCenter flex-row ${
@@ -77,11 +79,46 @@ const ButtonGroup = ({
   );
 };
 
+const checkActive = ({
+  active,
+  setActive,
+  pathname,
+}: {
+  active: string;
+  setActive: React.Dispatch<React.SetStateAction<string>>;
+  pathname: string;
+}) => {
+  switch (pathname) {
+    case "/":
+      setActive("Explore NFTs");
+      break;
+    case "/listed-nfts":
+      setActive("Listed NFTs");
+      break;
+    case "/my-nfts":
+      setActive("My NFTs");
+      break;
+    case "/create-nft":
+      setActive("");
+      break;
+    default:
+      setActive("");
+  }
+};
+
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState("Explore NFTs");
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  const pathname = usePathname();
 
+  useEffect(() => {
+    checkActive({ active, setActive, pathname });
+  }, [pathname]);
   return (
     <nav className="flexBetween w-full  z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1 ">
       <div className="flex flex-1 flex-row justify-start">
@@ -127,24 +164,29 @@ const Navbar = () => {
         </div>
       </div>
       <div className="hidden md:flex ml-2">
-        {isOpen ? (
-          <Image
-            src="/assets/cross.png"
-            alt="close"
-            width={25}
-            height={25}
-            onClick={() => setIsOpen(false)}
-            className={`${theme === "light" && "filter invert"}`}
-          />
-        ) : (
-          <Image
-            src="/assets/menu.png"
-            alt="menu"
-            width={25}
-            height={25}
-            onClick={() => setIsOpen(true)}
-            className={`${theme === "light" && "filter invert"}`}
-          />
+        {" "}
+        {mounted && ( // Only render theme-dependent content when mounted
+          <>
+            {isOpen ? (
+              <Image
+                src="/assets/cross.png"
+                alt="close"
+                width={25}
+                height={25}
+                onClick={() => setIsOpen(false)}
+                className={theme === "light" ? "brightness-0" : ""}
+              />
+            ) : (
+              <Image
+                src="/assets/menu.png"
+                alt="menu"
+                width={25}
+                height={25}
+                onClick={() => setIsOpen(true)}
+                className={theme === "light" ? "brightness-0" : ""}
+              />
+            )}
+          </>
         )}
         {isOpen && (
           <div className="fixed inset-0 top-65 dark:bg-nft-dark bg-white z-10 nav-h flex justify-between flex-col">
