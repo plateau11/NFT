@@ -16,7 +16,7 @@ const NFTCard = ({ nft }: { nft: NFT }) => {
   const { nftCurrency } = useContext(NFTContext);
   return (
     <Link
-      href={{ pathname: "/nft-details", query: { nft: JSON.stringify(nft) } }}
+      href={{ pathname: "/nft-details/", query: { nft: JSON.stringify(nft) } }}
     >
       {" "}
       <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-full sm:min-w-155 minmd:min-2-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 m-4 minlg:m-5 sm:my-2 sm:mx-2 cursor-pointer shadow-md">
