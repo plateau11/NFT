@@ -89,6 +89,7 @@ const NFTDetails = () => {
           price: nftData.price || "",
           seller: nftData.seller || "",
           description: nftData.description || "",
+          tokenURI: nftData.tokenURI || "",
         });
       }
     } catch (error) {
@@ -159,10 +160,20 @@ const NFTDetails = () => {
             <p className="font-poppins dark:text-white text-nft-black-1 text-base font-normal border border-gray p-2">
               You cannot buy your own NFT
             </p>
+          ) : currentAccount === nft.owner.toLowerCase() ? (
+            <Button
+              btnName="List on MarketPlace"
+              classStyles="mr-5 sm:mr-0 rounded-xl sm:mb-5"
+              handleClick={() =>
+                router.push(
+                  `/resell-nft?tokenId=${nft.tokenId}&tokenURI=${nft.tokenURI}`
+                )
+              }
+            />
           ) : (
             <Button
               btnName={`Buy for ${nft.price} ${nftCurrency}`}
-              classStyles="mr-5 sm:mr-0 rounded-xl"
+              classStyles="mr-5 sm:mr-0 rounded-xl sm:mb-5"
               handleClick={() => setPaymentModal(true)}
             />
           )}

@@ -124,9 +124,13 @@ export const NFTProvider = ({ children }) => {
       const contract = fetchContract(signer);
       console.log({ contract });
       const listingPrice = await contract.getListingPrice();
-      const transaction = await contract.createToken(metadataUrl, price, {
-        value: listingPrice.toString(),
-      });
+      const transaction = !isReselling
+        ? await contract.createToken(metadataUrl, price, {
+            value: listingPrice.toString(),
+          })
+        : await contract.resellToken(id, price, {
+            value: listingPrice.toString(),
+          });
       await transaction.wait();
     } catch (error) {
       console.error("Error creating sale.", error);
@@ -225,6 +229,7 @@ export const NFTProvider = ({ children }) => {
         fetchNFTs,
         fetchMyNFTsOrListedNFTs,
         buyNFT,
+        createSale,
       }}
     >
       {children}

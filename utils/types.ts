@@ -17,4 +17,5 @@ interface NFT {
   price: string;
   seller: string;
   description: string;
+  tokenURI?: string;
 }

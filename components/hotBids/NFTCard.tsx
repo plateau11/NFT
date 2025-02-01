@@ -12,7 +12,13 @@ interface NFT {
   image?: string;
   price: string;
 }
-const NFTCard = ({ nft }: { nft: NFT }) => {
+const NFTCard = ({
+  nft,
+  onProfilePage,
+}: {
+  nft: NFT;
+  onProfilePage: boolean;
+}) => {
   const { nftCurrency } = useContext(NFTContext);
   return (
     <Link
@@ -39,7 +45,7 @@ const NFTCard = ({ nft }: { nft: NFT }) => {
               <span className="normal ml-0.5">{nftCurrency}</span>
             </p>
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
-              {nft.seller.length > 10 ? shortenAddress(nft.seller) : nft.seller}
+              {shortenAddress(onProfilePage ? nft.owner : nft.seller)}
             </p>
           </div>
         </div>
