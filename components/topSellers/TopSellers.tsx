@@ -1,16 +1,26 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CreatorCard from "./CreatorCard";
 import { makeId } from "@/utils/makeId";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { NFTContext } from "@/context/NFTContext";
+import { getCreators } from "@/utils/getTopCreators";
+import { shortenAddress } from "@/utils/shortenAddress";
 const TopSellers = () => {
   const parentRef = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [hideButtons, setHideButtons] = useState(false);
   const { theme } = useTheme();
   const [id, setId] = useState("");
-
+  const { fetchNFTs } = useContext(NFTContext);
+  const [nfts, setNfts] = useState<NFTItem[]>([]);
+  useEffect(() => {
+    fetchNFTs().then((items: NFTItem[]) => {
+      setNfts(items);
+      console.log(items);
+    });
+  }, []);
   useEffect(() => {
     setId(`0x${makeId(3)}...${makeId(4)}`);
   }, []);
@@ -41,13 +51,25 @@ const TopSellers = () => {
       window.removeEventListener("resize", isScrollable);
     };
   });
+  const topCreators = getCreators(nfts);
+  console.log(topCreators);
+
   return (
     <div className="relative flex-1 max-w-full flex mt-3" ref={parentRef}>
       <div
         className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none"
         ref={scrollRef}
       >
-        {[6, 7, 8, 9, 10].map((i) => (
+        {topCreators.map((creator, i) => (
+          <CreatorCard
+            key={`creator-${creator.seller}`}
+            rank={i + 1}
+            creatorImage={`/assets/creator${i + 1}.png`}
+            creatorName={shortenAddress(creator.seller)}
+            creatorEths={creator.sum}
+          />
+        ))}
+        {/* {[6, 7, 8, 9, 10].map((i) => (
           <CreatorCard
             key={`creator-${i}`}
             rank={i}
@@ -55,7 +77,7 @@ const TopSellers = () => {
             creatorName={id}
             creatorEths={10 - i * 0.5}
           />
-        ))}
+        ))} */}
         {!hideButtons && (
           <>
             <div

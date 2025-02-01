@@ -1,7 +1,6 @@
 import Banner from "@/components/banner/Banner";
 import HotBids from "@/components/hotBids/HotBids";
 import TopSellers from "@/components/topSellers/TopSellers";
-
 export default function Home() {
   return (
     <div className="flex justify-center sm:px-4 p-12">

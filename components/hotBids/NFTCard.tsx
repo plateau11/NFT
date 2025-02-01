@@ -17,7 +17,7 @@ const NFTCard = ({
   onProfilePage,
 }: {
   nft: NFT;
-  onProfilePage: boolean;
+  onProfilePage?: boolean;
 }) => {
   const { nftCurrency } = useContext(NFTContext);
   return (
