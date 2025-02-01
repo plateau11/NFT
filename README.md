@@ -1,106 +1,112 @@
-NFT Marketplace
+# NFT Marketplace
 
-This is a Web3-based NFT marketplace where users can create, buy, sell, and resell NFTs using Ethereum. The project is built using Next.js, Hardhat, Pinata, and Solidity.
+This is a Web3-based NFT marketplace where users can create, buy, sell, and resell NFTs using Ethereum. The project is built using **Next.js, Hardhat, Pinata, and Solidity**.
 
-Features
+## Features
 
-Mint and list NFTs for sale
+- ✅ Mint and list NFTs for sale
+- ✅ Buy and resell NFTs
+- ✅ Connect with MetaMask wallet
+- ✅ Store NFT metadata on IPFS via Pinata
+- ✅ Smart contracts deployed on Ethereum blockchain
 
-Buy and resell NFTs
+## Tech Stack
 
-Connect with MetaMask wallet
+- **Frontend**: Next.js, React
+- **Backend**: Solidity (Smart Contracts)
+- **Blockchain**: Ethereum (Hardhat for local development)
+- **Storage**: Pinata (IPFS for metadata)
 
-Store NFT metadata on IPFS via Pinata
+## Getting Started
 
-Smart contracts deployed on Ethereum blockchain
-
-Tech Stack
-
-Frontend: Next.js, React
-
-Backend: Solidity (Smart Contracts)
-
-Blockchain: Ethereum (Hardhat for local development)
-
-Storage: Pinata (IPFS for metadata)
-
-Getting Started
-
-Prerequisites
+### Prerequisites
 
 Before you begin, ensure you have the following installed:
 
-Node.js (v16 or later)
+- Node.js (v16 or later)
+- npm or yarn
+- MetaMask wallet
+- Hardhat (for local blockchain)
+- Pinata account (for IPFS storage)
 
-npm or yarn
+### Installation
 
-MetaMask wallet
+1. **Clone the repository:**
 
-Hardhat (for local blockchain)
+   ```sh
+   git clone https://github.com/yourusername/nft-marketplace.git
+   cd nft-marketplace
+   ```
 
-Pinata account (for IPFS storage)
+2. **Install dependencies:**
 
-Installation
+   ```sh
+   npm install
+   ```
 
-Clone the repository:
+   or
 
-git clone https://github.com/yourusername/nft-marketplace.git
-cd nft-marketplace
+   ```sh
+   yarn install
+   ```
 
-Install dependencies:
+### Smart Contract Deployment
 
-npm install
+1. **Navigate to the `contracts` folder and compile the contracts:**
 
-or
+   ```sh
+   npx hardhat compile
+   ```
 
-yarn install
+2. **Start a local Ethereum network:**
 
-Smart Contract Deployment
+   ```sh
+   npx hardhat node
+   ```
 
-Navigate to the contracts folder and compile the contracts:
+3. **Deploy the smart contract to the local network:**
 
-npx hardhat compile
+   ```sh
+   npx hardhat run scripts/deploy.js --network localhost
+   ```
 
-Start a local Ethereum network:
+### Running the Frontend
 
-npx hardhat node
+1. **Create a `.env.local` file in the root directory and add your environment variables:**
 
-Deploy the smart contract to the local network:
+   ```sh
+   NEXT_PUBLIC_PINATA_API_KEY=your_pinata_api_key
+   NEXT_PUBLIC_PINATA_SECRET_API_KEY=your_pinata_secret_api_key
+   NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS=deployed_contract_address
+   ```
 
-npx hardhat run scripts/deploy.js --network localhost
+2. **Start the Next.js development server:**
 
-Running the Frontend
+   ```sh
+   npm run dev
+   ```
 
-Create a .env.local file in the root directory and add your environment variables:
+   or
 
-NEXT_PUBLIC_PINATA_API_KEY=your_pinata_api_key
-NEXT_PUBLIC_PINATA_SECRET_API_KEY=your_pinata_secret_api_key
-NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS=deployed_contract_address
+   ```sh
+   yarn dev
+   ```
 
-Start the Next.js development server:
+3. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
-npm run dev
+### Connecting MetaMask
 
-or
+- Open MetaMask and connect it to `http://localhost:8545`.
+- Import an account using the private key provided by Hardhat local node.
 
-yarn dev
+## License
 
-Open http://localhost:3000 in your browser.
+This project is licensed under the **MIT License**.
 
-Connecting MetaMask
+## Contributing
 
-Open MetaMask and connect it to http://localhost:8545
+Feel free to submit pull requests or raise issues if you find any bugs. 🚀
 
-Import an account using the private key provided by Hardhat local node
+## Contact
 
-License
-
-This project is licensed under the MIT License.
-
-Contributing
-
-Feel free to submit pull requests or raise issues if you find any bugs.
-
-Contact
-
-For any queries, reach out at your-email@example.com.
+For any queries, reach out at **aditya1pradhan21@gmail.com**.
